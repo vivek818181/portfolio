@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivek Gupta | AI & Data Science Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="progress-bar"></div>
+    <nav
+        class="fixed w-full z-50 px-6 py-4 flex justify-between items-center backdrop-blur-md border-b border-white/10">
+        <h2 class="text-2xl font-bold tracking-tighter">VIVEK<span class="text-blue-500">.AI</span></h2>
+        <ul class="hidden md:flex space-x-8 font-medium header">
+            <li><a href="#hero" class="hover">Home</a></li>
+            <li><a href="#about" class="hover">About</a></li>
+            <li><a href="#projects" class="hover">Projects</a></li>
+            <li><a href="#Skill" class="hover">Skill</a></li>
+            <li><a href="#contact" class="hover">Contact</a></li>
+        </ul>
+        <button onclick="toggleTheme()"
+            class="p-2 glass rounded-full w-10 h-10 flex items-center justify-center">🌙</button>
+    </nav>
+
+    <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center px-4">
+        <h3 class="text-blue-400 font-semibold tracking-widest mb-2 uppercase">Welcome to my space</h3>
+        <h1 class="text-5xl md:text-7xl font-bold mb-4">I'm Vivek Gupta</h1>
+        <h2 class="text-2xl md:text-3xl font-light opacity-80">
+            Professional <span id="typing-text" class="text-blue-500 font-bold"></span>
+        </h2>
+        <div class="mt-10 flex gap-4">
+            <a href="#"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition transform hover:scale-105">Download
+                CV</a>
+            <a href="https://github.com/vivek818181" target="_blank"
+                class="glass px-8 py-3 rounded-full font-bold hover:bg-white/10 transition">GitHub</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div class="flex justify-center">
+            <div class="ai-blob shadow-2xl shadow-blue-500/20"><img src="img.png" alt="" class="avatar"></div>
+        </div>
+        <div>
+            <h2 class="text-4xl font-bold mb-6">About Me</h2>
+            <p class="text-lg opacity-70 leading-relaxed mb-6">
+                I am an AI & Data Science student and web developer with a strong interest in building
+                real-world applications. I enjoy analyzing data to uncover meaningful insights and developing
+                user-friendly solutions using modern technologies. My focus is on writing clean, efficient code
+                and continuously improving my technical skills.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass p-4 text-center">
+                    <h4 class="text-blue-400 font-bold text-xl">10+</h4>
+                    <p class="text-xs uppercase">Projects Done</p>
+                </div>
+                <div class="glass p-4 text-center">
+                    <h4 class="text-purple-400 font-bold text-xl">Python</h4>
+                    <p class="text-xs uppercase">Core Skill</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">Featured Projects</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <div class="project-card glass p-6">
+                <div class="text-blue-500 text-3xl mb-4"><i class="fas fa-chart-line"></i></div>
+                <h3 class="text-xl font-bold mb-2">Zomato Data Analysis</h3>
+                <p class="text-sm opacity-60 mb-4">EDA using Pandas and Seaborn to identify dining trends and customer
+                    preferences.</p>
+                <div class="flex space-x-2 text-xs mb-4 text-blue-300">
+                    <span>#Python</span> <span>#Pandas</span> <span>#EDA</span>
+                </div>
+                <a href="#" class="text-blue-500 font-bold hover:underline">View Project →</a>
+            </div>
+
+            <div class="project-card glass p-6">
+                <div class="text-purple-500 text-3xl mb-4"><i class="fas fa-bell"></i></div>
+                <h3 class="text-xl font-bold mb-2">Smart Alarm System</h3>
+                <p class="text-sm opacity-60 mb-4">A web app that forces you to solve math problems before the alarm
+                    stops.</p>
+                <div class="flex space-x-2 text-xs mb-4 text-purple-300">
+                    <span>#JS</span> <span>#WebDev</span> <span>#Logic</span>
+                </div>
+                <a href="#" class="text-purple-500 font-bold hover:underline">View Project →</a>
+            </div>
+
+            <div class="project-card glass p-6">
+                <div class="text-green-500 text-3xl mb-4"><i class="fas fa-coins"></i></div>
+                <h3 class="text-xl font-bold mb-2">Currency Converter</h3>
+                <p class="text-sm opacity-60 mb-4">Real-time conversion using API integration with a clean, responsive
+                    UI.</p>
+                <div class="flex space-x-2 text-xs mb-4 text-green-300">
+                    <span>#API</span> <span>#Interactive</span>
+                </div>
+                <a href="#" class="text-green-500 font-bold hover:underline">View Project →</a>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+<section class="py-20 px-6 max-w-7xl mx-auto" id="Skill">
+    <h2 class="text-4xl font-bold text-center mb-16">Technical <span class="text-blue-500">Expertise</span></h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="project-card glass p-6 border border-white/10 hover:border-blue-500/50 transition-all">
+            <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 text-blue-400">
+                <i class="fas fa-code text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Languages</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/5 text-blue-300 text-xs rounded-full border border-white/10">Java</span>
+                <span class="px-3 py-1 bg-white/5 text-blue-300 text-xs rounded-full border border-white/10">Python</span>
+                <span class="px-3 py-1 bg-white/5 text-blue-300 text-xs rounded-full border border-white/10">JavaScript</span>
+            </div>
+        </div>
+
+        <div class="project-card glass p-6 border border-white/10 hover:border-orange-500/50 transition-all">
+            <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4 text-orange-400">
+                <i class="fas fa-globe text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Web Tech</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/5 text-orange-300 text-xs rounded-full border border-white/10">HTML5</span>
+                <span class="px-3 py-1 bg-white/5 text-blue-300 text-xs rounded-full border border-white/10">CSS3</span>
+            </div>
+        </div>
+
+        <div class="project-card glass p-6 border border-white/10 hover:border-green-500/50 transition-all">
+            <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4 text-green-400">
+                <i class="fas fa-database text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Data & Libraries</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/5 text-green-300 text-xs rounded-full border border-white/10">NumPy</span>
+                <span class="px-3 py-1 bg-white/5 text-green-300 text-xs rounded-full border border-white/10">Pandas</span>
+                <span class="px-3 py-1 bg-white/5 text-green-300 text-xs rounded-full border border-white/10">Matplotlib</span>
+                <span class="px-3 py-1 bg-white/5 text-green-300 text-xs rounded-full border border-white/10">BeautifulSoup</span>
+            </div>
+        </div>
+
+        <div class="project-card glass p-6 border border-white/10 hover:border-purple-500/50 transition-all">
+            <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+                <i class="fas fa-tools text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Tools</h3>
+            <ul class="text-sm opacity-70 space-y-2">
+                <li class="flex items-center"><i class="fab fa-github mr-2 text-purple-400"></i> GitHub</li>
+                <li class="flex items-center"><i class="fas fa-terminal mr-2 text-purple-400"></i> VS Code</li>
+                <li class="flex items-center"><i class="fas fa-book-open mr-2 text-purple-400"></i> Jupyter</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+    <section id="contact" class="py-20 px-6 max-w-3xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
+        <p class="opacity-60 mb-10">Have a project in mind or just want to say hi?</p>
+        <form class="space-y-4">
+            <input type="text" placeholder="Your Name"
+                class="w-full p-4 glass focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="email" placeholder="Your Email"
+                class="w-full p-4 glass focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <textarea placeholder="Your Message" rows="5"
+                class="w-full p-4 glass focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <button
+                class="w-full bg-blue-600 py-4 rounded-xl font-bold shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition">Send
+                Message</button>
+        </form>
+    </section>
+
+    <footer class="py-10 text-center opacity-40 border-t border-white/5">
+        <p>© 2026 Vivek Gupta | AI & Data Science Student</p>
+    </footer>
+
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="script.js"> </script>
+</body>
+
+</html>
