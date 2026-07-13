@@ -1,338 +1,1044 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivek Gupta | AI & Data Science Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+    <style>
+/* ================= VARIABLES & RESET ================= */
+:root {
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent: #a855f7;
+    --accent2: #06b6d4;
+    --bg: #0a0f1e;
+    --surface: #111827;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --glass: rgba(255,255,255,0.04);
+    --glass-hover: rgba(255,255,255,0.08);
+    --border: rgba(255,255,255,0.08);
+    --border-accent: rgba(59,130,246,0.4);
+    --shadow-blue: rgba(59,130,246,0.25);
+    --shadow-purple: rgba(168,85,247,0.2);
+    --radius: 16px;
+    --radius-sm: 10px;
+}
+.light-theme {
+    --bg: #f0f4ff;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --glass: rgba(255,255,255,0.65);
+    --glass-hover: rgba(255,255,255,0.85);
+    --border: rgba(0,0,0,0.08);
+    --border-accent: rgba(59,130,246,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+    font-family:'Space Grotesk',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:background 0.4s,color 0.4s;
+    overflow-x:hidden;
+    line-height:1.6;
+}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+img{display:block;}
 
+/* ================= CANVAS ================= */
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
+
+/* ================= PROGRESS BAR ================= */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));z-index:9999;transition:width 0.1s;}
+
+/* ================= NAVBAR ================= */
+.navbar{
+    position:fixed;top:0;width:100%;z-index:1000;
+    padding:0.9rem 5%;
+    display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    background:rgba(10,15,30,0.75);
+    border-bottom:1px solid var(--border);
+    transition:all 0.3s;
+}
+.light-theme .navbar{background:rgba(240,244,255,0.85);}
+.logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.02em;}
+.logo span{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:0.2rem;align-items:center;}
+.nav-links li a{
+    padding:0.45rem 0.9rem;border-radius:8px;
+    font-size:0.875rem;font-weight:500;color:var(--text-muted);
+    transition:all 0.2s;
+}
+.nav-links li a:hover{color:var(--text);background:var(--glass-hover);}
+.theme-toggle{
+    background:var(--glass);border:1px solid var(--border);
+    border-radius:50%;width:38px;height:38px;
+    cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;
+    transition:all 0.3s;color:var(--text);
+}
+.theme-toggle:hover{background:var(--glass-hover);transform:rotate(20deg);}
+.menu-icon{display:none;cursor:pointer;font-size:1.4rem;color:var(--text);background:none;border:none;}
+
+/* ================= SECTIONS COMMON ================= */
+.section-label{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--primary);background:rgba(59,130,246,0.1);
+    border:1px solid rgba(59,130,246,0.25);
+    padding:0.3rem 0.9rem;border-radius:50px;margin-bottom:1rem;
+}
+.section-title{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(1.8rem,4vw,2.8rem);
+    font-weight:800;line-height:1.15;letter-spacing:-0.02em;
+    margin-bottom:0.6rem;
+}
+.section-title span{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.section-desc{color:var(--text-muted);max-width:520px;margin:0 auto;font-size:0.95rem;}
+.section-header{text-align:center;margin-bottom:3rem;}
+.glass{
+    background:var(--glass);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+}
+
+/* ================= HERO ================= */
+.hero-section{
+    min-height:100vh;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+    text-align:center;padding:100px 1.5rem 4rem;
+}
+.hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);
+    color:var(--primary);padding:0.4rem 1rem;border-radius:50px;
+    font-size:0.8rem;font-weight:600;letter-spacing:0.05em;margin-bottom:1.5rem;
+}
+.hero-badge span{width:7px;height:7px;border-radius:50%;background:var(--primary);animation:pulse 1.5s infinite;}
+.hero-title{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(2.6rem,8vw,5rem);
+    font-weight:800;letter-spacing:-0.03em;line-height:1.05;
+    margin-bottom:1rem;
+}
+.hero-typing{font-size:clamp(1.1rem,3vw,1.5rem);color:var(--text-muted);font-weight:400;margin-bottom:2.5rem;}
+.hero-typing strong{
+    font-weight:700;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.btn-row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn-primary{
+    display:inline-flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    color:#fff;padding:0.8rem 2rem;border-radius:50px;
+    font-weight:700;font-size:0.95rem;
+    transition:transform 0.2s,box-shadow 0.2s;
+    box-shadow:0 4px 20px var(--shadow-blue);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--shadow-blue);}
+.btn-secondary{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--glass);border:1px solid var(--border);
+    color:var(--text);padding:0.8rem 2rem;border-radius:50px;
+    font-weight:600;font-size:0.95rem;
+    transition:all 0.2s;
+}
+.btn-secondary:hover{background:var(--glass-hover);border-color:var(--border-accent);transform:translateY(-2px);}
+
+/* ================= ABOUT ================= */
+.about-section{
+    padding:100px 5%;
+    display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;
+    align-items:center;max-width:1200px;margin:0 auto;
+}
+.blob-wrap{display:flex;justify-content:center;}
+.ai-blob{
+    width:260px;height:260px;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    border-radius:60% 40% 30% 70%/60% 30% 70% 40%;
+    animation:morph 8s ease-in-out infinite;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 60px var(--shadow-blue);
+}
+.avatar{width:220px;height:220px;border-radius:65%;border:3px solid rgba(255,255,255,0.2);object-fit:cover;}
+.about-content .section-label{margin-bottom:0.8rem;}
+.about-text{color:var(--text-muted);margin:1rem 0 2rem;line-height:1.8;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.stat-card{
+    padding:1.2rem;border-radius:var(--radius-sm);
+    background:var(--glass);border:1px solid var(--border);
+    text-align:center;transition:all 0.3s;
+}
+.stat-card:hover{border-color:var(--border-accent);background:var(--glass-hover);}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:0.8rem;color:var(--text-muted);margin-top:2px;}
+
+/* ================= PROJECTS ================= */
+.projects-section{padding:80px 5%;max-width:1300px;margin:0 auto;}
+.grid-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin-top:1rem;}
+.project-card{
+    padding:1.8rem;border-radius:var(--radius);
+    background:var(--glass);border:1px solid var(--border);
+    transition:all 0.35s;position:relative;overflow:hidden;
+}
+.project-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--primary),var(--accent));
+    opacity:0;transition:opacity 0.3s;
+}
+.project-card:hover::before{opacity:1;}
+.project-card:hover{transform:translateY(-8px);border-color:var(--border-accent);box-shadow:0 20px 50px rgba(0,0,0,0.3);}
+.project-icon{
+    width:46px;height:46px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1.2rem;font-size:1.2rem;
+}
+.project-icon.blue{background:rgba(59,130,246,0.15);color:var(--primary);}
+.project-icon.purple{background:rgba(168,85,247,0.15);color:var(--accent);}
+.project-icon.green{background:rgba(34,197,94,0.15);color:#22c55e;}
+.project-title{font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:var(--text);}
+.project-desc{color:var(--text-muted);font-size:0.88rem;line-height:1.7;margin-bottom:1rem;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem;}
+.tag{
+    font-size:0.72rem;font-weight:600;letter-spacing:0.03em;
+    background:rgba(59,130,246,0.1);color:var(--primary);
+    border:1px solid rgba(59,130,246,0.2);padding:0.2rem 0.6rem;border-radius:50px;
+}
+.view-link{
+    font-size:0.85rem;font-weight:600;color:var(--accent2);
+    display:inline-flex;align-items:center;gap:4px;transition:gap 0.2s;
+}
+.view-link:hover{gap:8px;}
+
+/* ================= SKILLS SECTION ================= */
+.skills-section{padding:80px 5%;max-width:1300px;margin:0 auto;}
+.skills-wrapper{display:flex;flex-direction:column;gap:2.5rem;margin-top:1rem;}
+.cat-label{
+    font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--primary);border-left:3px solid var(--primary);padding-left:10px;
+    margin-bottom:1rem;
+}
+.tech-grid{display:flex;flex-wrap:wrap;gap:12px;}
+.tech-card{
+    position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:8px;width:105px;height:105px;border-radius:var(--radius-sm);cursor:default;overflow:hidden;
+    background:var(--glass);border:1px solid var(--border);
+    transition:transform 0.3s cubic-bezier(.34,1.56,.64,1),border-color 0.3s,background 0.3s;
+}
+.tech-card:hover{transform:translateY(-7px) scale(1.04);border-color:rgba(255,255,255,0.2);background:var(--glass-hover);}
+.tech-card:hover .tech-glow{opacity:0.55;}
+.tech-logo-wrap{display:flex;align-items:center;justify-content:center;width:46px;height:46px;transition:transform 0.3s;}
+.tech-card:hover .tech-logo-wrap{transform:scale(1.12) rotate(-4deg);}
+.tech-name{font-size:10.5px;font-weight:600;color:var(--text-muted);text-align:center;letter-spacing:0.03em;transition:color 0.3s;}
+.tech-card:hover .tech-name{color:var(--text);}
+.tech-glow{
+    position:absolute;width:75px;height:75px;border-radius:50%;
+    background:radial-gradient(circle,var(--glow),transparent 70%);
+    opacity:0;top:50%;left:50%;transform:translate(-50%,-58%);
+    transition:opacity 0.3s;pointer-events:none;z-index:0;filter:blur(8px);
+}
+.tech-card>*{position:relative;z-index:1;}
+.tech-card>.tech-glow{z-index:0;}
+.tech-card::after{
+    content:attr(data-tooltip);position:absolute;bottom:calc(100% + 8px);left:50%;
+    transform:translateX(-50%) translateY(6px);
+    background:rgba(10,15,30,0.95);color:#fff;font-size:11px;font-weight:600;
+    padding:4px 10px;border-radius:6px;white-space:nowrap;
+    opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;
+    border:1px solid var(--border);z-index:10;
+}
+.tech-card:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ================= EXPERIENCE SECTION ================= */
+.experience-section{padding:80px 5%;max-width:1000px;margin:0 auto;}
+.timeline{position:relative;padding-left:2rem;margin-top:1rem;}
+.timeline::before{
+    content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;
+    background:linear-gradient(180deg,var(--primary),var(--accent),transparent);
+    border-radius:2px;
+}
+.timeline-item{position:relative;padding:1.6rem 1.8rem;margin-bottom:1.5rem;border-radius:var(--radius);
+    background:var(--glass);border:1px solid var(--border);
+    transition:all 0.3s;
+}
+.timeline-item::before{
+    content:'';position:absolute;left:-2.5rem;top:1.9rem;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--primary);border:2px solid var(--bg);
+    box-shadow:0 0 10px var(--primary);
+}
+.timeline-item:hover{border-color:var(--border-accent);background:var(--glass-hover);transform:translateX(4px);}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;}
+.exp-role{font-weight:700;font-size:1rem;color:var(--text);}
+.exp-badge{
+    font-size:0.7rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+    background:rgba(59,130,246,0.12);color:var(--primary);
+    border:1px solid rgba(59,130,246,0.25);padding:0.2rem 0.7rem;border-radius:50px;
+    white-space:nowrap;
+}
+.exp-org{font-size:0.88rem;font-weight:600;color:var(--primary);margin-bottom:0.3rem;}
+.exp-date{font-size:0.78rem;color:var(--text-muted);margin-bottom:0.7rem;display:flex;align-items:center;gap:4px;}
+.exp-desc{font-size:0.88rem;color:var(--text-muted);line-height:1.75;}
+.exp-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:0.8rem;}
+.exp-skill{font-size:0.72rem;font-weight:600;background:rgba(168,85,247,0.1);color:var(--accent);border:1px solid rgba(168,85,247,0.2);padding:0.2rem 0.6rem;border-radius:50px;}
+
+/* ================= CERTIFICATIONS ================= */
+.certifications-section{padding:80px 5%;max-width:1300px;margin:0 auto;}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:1rem;}
+.cert-card{
+    padding:1.5rem;border-radius:var(--radius);
+    background:var(--glass);border:1px solid var(--border);
+    display:flex;gap:1rem;align-items:flex-start;
+    transition:all 0.3s;
+}
+.cert-card:hover{border-color:var(--border-accent);background:var(--glass-hover);transform:translateY(-4px);}
+.cert-icon{
+    width:44px;height:44px;min-width:44px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
+}
+.cert-icon.yellow{background:rgba(234,179,8,0.15);color:#eab308;}
+.cert-icon.blue{background:rgba(59,130,246,0.15);color:var(--primary);}
+.cert-icon.green{background:rgba(34,197,94,0.15);color:#22c55e;}
+.cert-icon.orange{background:rgba(249,115,22,0.15);color:#f97316;}
+.cert-icon.purple{background:rgba(168,85,247,0.15);color:var(--accent);}
+.cert-icon.cyan{background:rgba(6,182,212,0.15);color:var(--accent2);}
+.cert-body{flex:1;}
+.cert-title{font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:0.25rem;}
+.cert-issuer{font-size:0.8rem;color:var(--primary);font-weight:600;margin-bottom:0.25rem;}
+.cert-date{font-size:0.75rem;color:var(--text-muted);}
+.cert-badge{
+    display:inline-flex;align-items:center;gap:4px;
+    margin-top:0.4rem;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;
+    background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.2);
+    padding:0.15rem 0.55rem;border-radius:50px;
+}
+
+/* ================= CONTACT ================= */
+.contact-section{padding:80px 5%;max-width:900px;margin:0 auto;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:3rem;align-items:start;margin-top:1rem;}
+.contact-info{display:flex;flex-direction:column;gap:1.2rem;}
+.contact-item{
+    display:flex;align-items:center;gap:1rem;
+    padding:1rem 1.2rem;border-radius:var(--radius-sm);
+    background:var(--glass);border:1px solid var(--border);
+    transition:all 0.3s;
+}
+.contact-item:hover{border-color:var(--border-accent);background:var(--glass-hover);}
+.contact-item-icon{
+    width:40px;height:40px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1rem;background:rgba(59,130,246,0.15);color:var(--primary);flex-shrink:0;
+}
+.contact-item-text{font-size:0.88rem;}
+.contact-item-label{font-size:0.72rem;color:var(--text-muted);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;}
+.social-row{display:flex;gap:10px;margin-top:0.5rem;}
+.social-btn{
+    width:40px;height:40px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--glass);border:1px solid var(--border);
+    font-size:1rem;color:var(--text-muted);transition:all 0.3s;
+}
+.social-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px);}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:0.8rem;font-weight:600;color:var(--text-muted);letter-spacing:0.03em;}
+.form-input{
+    width:100%;padding:0.85rem 1rem;
+    background:var(--glass);border:1px solid var(--border);
+    border-radius:var(--radius-sm);color:var(--text);
+    font-family:'Space Grotesk',sans-serif;font-size:0.9rem;
+    transition:border-color 0.2s,background 0.2s;outline:none;
+}
+.form-input:focus{border-color:var(--primary);background:var(--glass-hover);}
+.form-input::placeholder{color:var(--text-muted);}
+.btn-submit{
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    color:#fff;border:none;padding:0.9rem 1.5rem;border-radius:var(--radius-sm);
+    font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;
+    cursor:pointer;transition:all 0.3s;
+    box-shadow:0 4px 20px var(--shadow-blue);
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--shadow-blue);}
+
+/* ================= FOOTER ================= */
+footer{
+    padding:2rem 5%;text-align:center;
+    border-top:1px solid var(--border);
+    color:var(--text-muted);font-size:0.85rem;margin-top:3rem;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes morph{
+    0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;}
+    50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;}
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.85);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.7s ease forwards;}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+    .menu-icon{display:block;}
+    .nav-links{
+        position:fixed;top:60px;left:-100%;width:100%;
+        height:calc(100vh - 60px);background:var(--bg);
+        flex-direction:column;align-items:center;justify-content:center;
+        padding:2rem;transition:left 0.4s ease;z-index:999;gap:1.5rem;
+    }
+    .nav-links.active{left:0;}
+    .nav-links li a{font-size:1.2rem;padding:0.6rem 2rem;}
+    .about-section{grid-template-columns:1fr;gap:3rem;text-align:center;padding:80px 1.5rem;}
+    .blob-wrap{justify-content:center;}
+    .about-content .section-label{margin:0 auto 0.8rem;}
+    .section-desc{margin:0;}
+    .contact-grid{grid-template-columns:1fr;}
+    .tech-grid{justify-content:center;}
+    .tech-card{width:90px;height:90px;}
+    .tech-card::after{display:none;}
+    .grid-container{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+    .timeline{padding-left:1.5rem;}
+    .timeline-item::before{left:-2rem;}
+    .cert-grid{grid-template-columns:1fr;}
+    .exp-header{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:480px){
+    .hero-section{padding:80px 1rem 3rem;}
+    .btn-row{flex-direction:column;align-items:center;}
+    .btn-primary,.btn-secondary{width:100%;max-width:260px;justify-content:center;}
+    .tech-card{width:80px;height:80px;}
+    .tech-logo-wrap{width:38px;height:38px;}
+    .tech-name{font-size:9.5px;}
+    .skills-section,.certifications-section,.experience-section,.projects-section,.contact-section{padding:60px 1.2rem;}
+}
+    </style>
+</head>
 <body>
 
-    <!-- Animated background canvas -->
-    <canvas id="bg-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
+<div id="progress-bar"></div>
 
-    <div id="progress-bar"></div>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="logo">VIVEK<span>.AI</span></div>
+    <button class="menu-icon" onclick="toggleMenu()" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="nav-menu">
+        <li><a href="#hero" onclick="closeMenu()">Home</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+        <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+        <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+        <li><a href="#certifications" onclick="closeMenu()">Certs</a></li>
+        <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+    </ul>
+    <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+</nav>
 
-    <nav class="navbar">
-        <h2 class="logo">VIVEK<span class="text-blue-500">.AI</span></h2>
+<!-- ===== HERO ===== -->
+<section id="hero" class="hero-section">
+    <div class="hero-badge"><span></span> Open to Opportunities</div>
+    <h1 class="hero-title">I'm Vivek Gupta</h1>
+    <p class="hero-typing">Professional <strong><span id="typing-text"></span></strong></p>
+    <div class="btn-row">
+        <a href="#" class="btn-primary"><i class="fas fa-download"></i> Download CV</a>
+        <a href="https://github.com/vivek818181" target="_blank" class="btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+</section>
 
-        <div class="menu-icon" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
+<!-- ===== ABOUT ===== -->
+<section id="about" class="about-section">
+    <div class="blob-wrap">
+        <div class="ai-blob">
+            <img src="img.png" alt="Vivek Gupta" class="avatar">
+        </div>
+    </div>
+    <div class="about-content">
+        <div class="section-label">✦ About Me</div>
+        <h2 class="section-title">Building <span>AI-Powered</span> Solutions</h2>
+        <p class="about-text">
+            I am an AI & Data Science student and web developer with a strong interest in building real-world applications. I enjoy analyzing data to uncover meaningful insights and developing user-friendly solutions using modern technologies.
+        </p>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-num">10+</div><div class="stat-label">Projects Done</div></div>
+            <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Certifications</div></div>
+            <div class="stat-card"><div class="stat-num">Python</div><div class="stat-label">Core Language</div></div>
+            <div class="stat-card"><div class="stat-num">AI/ML</div><div class="stat-label">Focus Area</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="projects-section">
+    <div class="section-header">
+        <div class="section-label">✦ Portfolio</div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <p class="section-desc">Real-world applications built with modern tech stacks</p>
+    </div>
+    <div class="grid-container">
+        <div class="project-card">
+            <div class="project-icon green">
+                <i class="fas fa-coins">
+            </i></div>
+            <h3 class="project-title">Smart TimeTable Generator</h3>
+            <p class="project-desc">AI-powered academic timetable generator with genetic algorithm optimization and cross-subject batch lab scheduling ,By using HTML, CSS, JavaScript and Python flask</p>
+            <div class="tags"><span class="tag">Python Flask</span><span class="tag">JavaScript</span> <span class="tag">HTML & CSS</span> <span class="tag">Genetic Algoorithm</span>  </div>
+            <a href="https://ttcuractor.vercel.app/" class="view-link">View Project <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+        <div class="project-card">
+            <div class="project-icon purple"><i class="fas fa-bell"></i></div>
+            <h3 class="project-title">Smart Alarm System</h3>
+            <p class="project-desc">A web app that forces you to solve math problems before the alarm stops — no snoozing your way out!</p>
+            <div class="tags"><span class="tag">JavaScript</span><span class="tag">WebDev</span><span class="tag">Logic</span></div>
+            <a href="https://smart-alarm-flame.vercel.app" class="view-link">View Project <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+        <div class="project-card">
+            <div class="project-icon blue"><i class="fas fa-chart-line"></i></div>
+            <h3 class="project-title">Zomato Data Analysis</h3>
+            <p class="project-desc">EDA using Pandas and Seaborn to identify dining trends and customer preferences across Indian cities.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">EDA</span><span class="tag">Seaborn</span></div>
+            <a href="https://github.com/vivek818181/ZomatoDataAnalysis" class="view-link">View Project <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+        <div class="project-card">
+            <div class="project-icon green"><i class="fas fa-coins"></i></div>
+            <h3 class="project-title">Currency Converter</h3>
+            <p class="project-desc">Real-time conversion using live API integration with a clean, responsive UI and currency history charts.</p>
+            <div class="tags"><span class="tag">API</span><span class="tag">JavaScript</span><span class="tag">HTML</span></div>
+            <a href="https://github.com/vivek818181/CurrencyConverter" class="view-link">View Project <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="skills-section">
+    <div class="section-header">
+        <div class="section-label">✦ Technical Stack</div>
+        <h2 class="section-title">Skills & <span>Expertise</span></h2>
+        <p class="section-desc">Technologies I work with to build impactful solutions</p>
+    </div>
+    <div class="skills-wrapper">
+
+        <div class="skill-category">
+            <p class="cat-label">Languages</p>
+            <div class="tech-grid">
+                <div class="tech-card" data-tooltip="Python">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#3776AB" d="M63.39 3.43c-3.26.01-6.38.29-9.09.8C44.32 6.08 42.6 10.4 42.6 17.5v10.3h21.3v3.4H32.14c-7.2 0-13.51 4.33-15.49 12.57-2.28 9.46-2.38 15.36 0 25.23C18.3 76.63 22.4 82 29.6 82h9.41V69.9c0-8.18 7.08-15.4 15.49-15.4h21.27c6.9 0 12.41-5.67 12.41-12.59V17.5c0-6.72-5.67-11.77-12.41-12.27a84.87 84.87 0 0 0-12.38-.8zM52.1 10.6a4.64 4.64 0 1 1 0 9.27 4.63 4.63 0 0 1 0-9.27z"/><path fill="#FFD43B" d="M99.75 31.2h-9.4v11.8c0 8.53-7.24 15.71-15.49 15.71H53.59c-6.79 0-12.41 5.8-12.41 12.59v23.42c0 6.72 5.84 10.67 12.41 12.27 7.86 2.01 15.4 2.37 24.68 0 6.23-1.55 12.41-4.68 12.41-12.27V84h-21.3v-3.4h33.78c7.2 0 9.87-5.02 12.41-12.57 2.63-7.77 2.52-15.25 0-25.23-1.81-7.18-5.2-12.6-12.82-12.6zm-11.03 51.9a4.64 4.64 0 1 1 0 9.28 4.63 4.63 0 0 1 0-9.28z"/></svg>
+                    </div>
+                    <span class="tech-name">Python</span>
+                    <div class="tech-glow" style="--glow:#3776AB"></div>
+                </div>
+                <div class="tech-card" data-tooltip="Java">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#EA2D2E" d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z"/><path fill="#EA2D2E" d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 0-42.731 10.67-22.324 34.187z"/><path fill="#EA2D2E" d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0 0 .364-.326.468-.617z"/><path fill="#EA2D2E" d="M76.491 1.587S89.45 14.554 64.301 34.451c-20.24 15.971-4.621 25.087 0 35.496-11.8-10.651-20.45-20.032-14.644-28.786C58.374 28.416 81.236 22.753 76.491 1.587z"/><path fill="#EA2D2E" d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.572 7.231-19.27 3.612-43.024 3.191-57.111.875 0 0 2.87 2.073 17.866 3.33z"/></svg>
+                    </div>
+                    <span class="tech-name">Java</span>
+                    <div class="tech-glow" style="--glow:#EA2D2E"></div>
+                </div>
+                <div class="tech-card" data-tooltip="HTML5">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#E44D26" d="M19.037 113.876L9.032 1.661h109.936l-10.016 112.198-45.019 12.48z"/><path fill="#F16529" d="M64 116.8l36.378-10.086 8.559-95.878H64z"/><path fill="#EBEBEB" d="M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692 3.382 37.927H64zm0 35.743l-.061.017-15.327-4.14-.979-10.975H33.816l1.928 21.609 28.193 7.826.063-.017z"/><path fill="#fff" d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.143v14.319l28.215-7.82.207-2.325 3.234-36.233.336-3.696H63.952zm0-27.856v13.762h33.244l.276-3.092.628-6.978.329-3.692H63.952z"/></svg>
+                    </div>
+                    <span class="tech-name">HTML5</span>
+                    <div class="tech-glow" style="--glow:#E44D26"></div>
+                </div>
+                <div class="tech-card" data-tooltip="CSS3">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#1572B6" d="M19.037 113.876L9.032 1.661h109.936l-10.016 112.198-45.019 12.48z"/><path fill="#33A9DC" d="M64 116.8l36.378-10.086 8.559-95.878H64z"/><path fill="#fff" d="M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692 3.382 37.927H64zm0 35.743l-.061.017-15.327-4.14-.979-10.975H33.816l1.928 21.609 28.193 7.826.063-.017z"/><path fill="#EBEBEB" d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.143v14.319l28.215-7.82.207-2.325 3.234-36.233.336-3.696H63.952zm0-27.856v13.762h33.244l.276-3.092.628-6.978.329-3.692H63.952z"/></svg>
+                    </div>
+                    <span class="tech-name">CSS3</span>
+                    <div class="tech-glow" style="--glow:#1572B6"></div>
+                </div>
+                <div class="tech-card" data-tooltip="JavaScript">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#F7DF1E" d="M1.408 1.408h125.184v125.185H1.408z"/><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"/></svg>
+                    </div>
+                    <span class="tech-name">JavaScript</span>
+                    <div class="tech-glow" style="--glow:#F7DF1E"></div>
+                </div>
+                <div class="tech-card" data-tooltip="SQL">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><ellipse cx="64" cy="28" rx="50" ry="18" fill="#00758F"/><path fill="#00758F" d="M14 28v20c0 9.94 22.39 18 50 18s50-8.06 50-18V28c0 9.94-22.39 18-50 18S14 37.94 14 28z"/><path fill="#00758F" d="M14 68v20c0 9.94 22.39 18 50 18s50-8.06 50-18V68c0 9.94-22.39 18-50 18S14 77.94 14 68z"/><path fill="#F29111" d="M64 10C36.39 10 14 18.06 14 28s22.39 18 50 18 50-8.06 50-18S91.61 10 64 10zm0 30c-24.3 0-44-5.37-44-12s19.7-12 44-12 44 5.37 44 12-19.7 12-44 12z"/></svg>
+                    </div>
+                    <span class="tech-name">SQL</span>
+                    <div class="tech-glow" style="--glow:#F29111"></div>
+                </div>
+            </div>
         </div>
 
-        <ul class="nav-links header" id="nav-menu">
-            <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
-            <li><a href="#about" onclick="toggleMenu()">About</a></li>
-            <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-            <li><a href="#Skill" onclick="toggleMenu()">Skill</a></li>
-            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </ul>
-        <button onclick="toggleTheme()" class="theme-toggle glass">🌙</button>
-    </nav>
-
-    <section id="hero" class="hero-section">
-        <h3 class="hero-subtitle" style="color: #599ae3;">Welcome to my space</h3>
-        <h1 class="hero-title">I'm Vivek Gupta</h1>
-        <h2 class="hero-typing">
-            Professional <span id="typing-text" class="text-blue-500"></span>
-        </h2>
-        <div class="btn-container">
-            <a href="#" class="btn-primary">Download CV</a>
-            <a href="https://github.com/vivek818181" target="_blank" class="btn-outline"><img src="icon-icons.svg"
-                    alt="">GitHub</a>
-        </div>
-    </section>
-
-    <section id="about" class="about-section">
-        <div class="about-image">
-            <div class="ai-blob">
-                <img src="img.png" alt="Vivek Gupta" class="avatar">
-            </div>
-        </div>
-        <div class="about-content">
-            <h2 class="section-title">About Me</h2>
-            <p class="section-text">
-                I am an AI & Data Science student and web developer with a strong interest in building
-                real-world applications. I enjoy analyzing data to uncover meaningful insights and developing
-                user-friendly solutions using modern technologies.
-            </p>
-            <div class="stats-grid">
-                <div class="glass about-card">
-                    <h4 class="text">10+</h4>
-                    <p>Projects Done</p>
+        <div class="skill-category">
+            <p class="cat-label">AI / Data Science</p>
+            <div class="tech-grid">
+                <div class="tech-card" data-tooltip="NumPy">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#4DABCF" d="M63.188 21.25l-37.5 21.667v43.333l37.5 21.666 37.5-21.666V42.917L63.188 21.25z"/><path fill="#4D77CF" d="M63.188 21.25v86.666L100.688 86V42.917L63.188 21.25z"/><path fill="none" stroke="#fff" stroke-width="4" d="M40 55h46M40 73h46M63 42v44"/></svg>
+                    </div>
+                    <span class="tech-name">NumPy</span>
+                    <div class="tech-glow" style="--glow:#4DABCF"></div>
                 </div>
-                <div class="glass about-card">
-                    <h4 class="text">Python</h4>
-                    <p>Core Skill</p>
+                <div class="tech-card" data-tooltip="Pandas">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><rect x="46" y="8" width="14" height="48" rx="7" fill="#130754"/><rect x="68" y="28" width="14" height="48" rx="7" fill="#E70488"/><rect x="46" y="72" width="14" height="48" rx="7" fill="#130754"/><rect x="68" y="52" width="14" height="48" rx="7" fill="#E70488"/></svg>
+                    </div>
+                    <span class="tech-name">Pandas</span>
+                    <div class="tech-glow" style="--glow:#E70488"></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects-section">
-        <h2 class="section-title text-center">Featured Projects</h2>
-        <div class="grid-container">
-            <div class="project-card glass">
-                <div class="icon text-blue-500"><i class="fas fa-chart-line"></i></div>
-                <h3 class="project-head">Zomato Data Analysis</h3>
-                <p>EDA using Pandas and Seaborn to identify dining trends and customer preferences.</p>
-                <div class="tags">
-                    <span>#Python</span> <span>#Pandas</span> <span>#EDA</span>
+                <div class="tech-card" data-tooltip="Matplotlib">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><circle cx="64" cy="64" r="54" fill="#11557C"/><circle cx="64" cy="64" r="40" fill="#fff"/><circle cx="64" cy="64" r="26" fill="#11557C"/><circle cx="64" cy="64" r="8" fill="#fff"/><line x1="64" y1="24" x2="64" y2="10" stroke="#11557C" stroke-width="4"/><line x1="64" y1="118" x2="64" y2="104" stroke="#11557C" stroke-width="4"/><line x1="24" y1="64" x2="10" y2="64" stroke="#11557C" stroke-width="4"/><line x1="118" y1="64" x2="104" y2="64" stroke="#11557C" stroke-width="4"/></svg>
+                    </div>
+                    <span class="tech-name">Matplotlib</span>
+                    <div class="tech-glow" style="--glow:#11557C"></div>
                 </div>
-                <a href="#" class="view-link">View Project →</a>
-            </div>
-
-            <div class="project-card glass">
-                <div class="icon text-purple-500"><i class="fas fa-bell"></i></div>
-                <h3 class="project-head">Smart Alarm System</h3>
-                <p>A web app that forces you to solve math problems before the alarm stops.</p>
-                <div class="tags">
-                    <span>#JS</span> <span>#WebDev</span> <span>#Logic</span>
+                <div class="tech-card" data-tooltip="Seaborn">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><rect width="128" height="128" rx="20" fill="#4C72B0"/><rect x="20" y="80" width="15" height="28" rx="4" fill="#64B5F6"/><rect x="42" y="60" width="15" height="48" rx="4" fill="#90CAF9"/><rect x="64" y="40" width="15" height="68" rx="4" fill="#BBDEFB"/><rect x="86" y="55" width="15" height="53" rx="4" fill="#90CAF9"/><rect x="108" y="70" width="15" height="38" rx="4" fill="#64B5F6"/><line x1="20" y1="30" x2="108" y2="75" stroke="#fff" stroke-width="3" stroke-dasharray="5,3"/></svg>
+                    </div>
+                    <span class="tech-name">Seaborn</span>
+                    <div class="tech-glow" style="--glow:#4C72B0"></div>
                 </div>
-                <a href="#" class="view-link">View Project →</a>
-            </div>
-
-            <div class="project-card glass">
-                <div class="icon text-green-500"><i class="fas fa-coins"></i></div>
-                <h3 class="project-head">Currency Converter</h3>
-                <p>Real-time conversion using API integration with a clean, responsive UI.</p>
-                <div class="tags">
-                    <span>#API</span> <span>#Interactive</span>
+                <div class="tech-card" data-tooltip="Scikit-learn">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><circle cx="64" cy="64" r="54" fill="#F89939"/><path fill="#3499CD" d="M64 20 L90 50 L80 80 L48 80 L38 50 Z"/><circle cx="64" cy="58" r="14" fill="#fff"/></svg>
+                    </div>
+                    <span class="tech-name">Sklearn</span>
+                    <div class="tech-glow" style="--glow:#F89939"></div>
                 </div>
-                <a href="#" class="view-link">View Project →</a>
+                <div class="tech-card" data-tooltip="Power BI">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><rect x="10" y="50" width="22" height="68" rx="4" fill="#F2C811"/><rect x="40" y="30" width="22" height="88" rx="4" fill="#F2C811" opacity="0.85"/><rect x="70" y="10" width="22" height="108" rx="4" fill="#F2C811" opacity="0.7"/><rect x="100" y="38" width="18" height="80" rx="4" fill="#F2C811" opacity="0.55"/></svg>
+                    </div>
+                    <span class="tech-name">Power BI</span>
+                    <div class="tech-glow" style="--glow:#F2C811"></div>
+                </div>
             </div>
         </div>
-    </section>
 
-    <!-- ===== UPDATED SKILLS SECTION ===== -->
-    <section id="Skill" class="skills-section">
-        <h2 class="section-title text-center">Technical <span class="blue">Expertise</span></h2>
-
-        <div class="skills-wrapper ">
-
-            <div class="skill-category">
-                <p class="cat-label">Languages</p>
-                <div class="tech-grid">
-
-                    <div class="tech-card glass" data-tooltip="Python">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#3776AB"
-                                    d="M63.39 3.43c-3.26.01-6.38.29-9.09.8C44.32 6.08 42.6 10.4 42.6 17.5v10.3h21.3v3.4H32.14c-7.2 0-13.51 4.33-15.49 12.57-2.28 9.46-2.38 15.36 0 25.23C18.3 76.63 22.4 82 29.6 82h9.41V69.9c0-8.18 7.08-15.4 15.49-15.4h21.27c6.9 0 12.41-5.67 12.41-12.59V17.5c0-6.72-5.67-11.77-12.41-12.27a84.87 84.87 0 0 0-12.38-.8zM52.1 10.6a4.64 4.64 0 1 1 0 9.27 4.63 4.63 0 0 1 0-9.27z" />
-                                <path fill="#FFD43B"
-                                    d="M99.75 31.2h-9.4v11.8c0 8.53-7.24 15.71-15.49 15.71H53.59c-6.79 0-12.41 5.8-12.41 12.59v23.42c0 6.72 5.84 10.67 12.41 12.27 7.86 2.01 15.4 2.37 24.68 0 6.23-1.55 12.41-4.68 12.41-12.27V84h-21.3v-3.4h33.78c7.2 0 9.87-5.02 12.41-12.57 2.63-7.77 2.52-15.25 0-25.23-1.81-7.18-5.2-12.6-12.82-12.6zm-11.03 51.9a4.64 4.64 0 1 1 0 9.28 4.63 4.63 0 0 1 0-9.28z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">Python</span>
-                        <div class="tech-glow" style="--glow:#3776AB"></div>
+        <div class="skill-category">
+            <p class="cat-label">Web Development</p>
+            <div class="tech-grid">
+                <div class="tech-card" data-tooltip="React">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><circle cx="64" cy="64" r="11.4" fill="#61DAFB"/><g fill="none" stroke="#61DAFB" stroke-width="5"><ellipse cx="64" cy="64" rx="56" ry="21"/><ellipse cx="64" cy="64" rx="56" ry="21" transform="rotate(60 64 64)"/><ellipse cx="64" cy="64" rx="56" ry="21" transform="rotate(120 64 64)"/></g></svg>
                     </div>
-
-                    <div class="tech-card glass" data-tooltip="Java">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#F89820"
-                                    d="M47.617 98.12s-3.023 1.757 2.149 2.345c6.27.713 9.481.611 16.39-.69 0 0 1.819 1.138 4.354 2.125-15.48 6.633-35.04-.384-22.893-3.78zm-1.755-8.028s-3.393 2.512 1.787 3.048c6.704.691 11.99.749 21.16-1.016 0 0 1.268 1.286 3.263 1.987-18.75 5.487-39.61.436-26.21-4.019z" />
-                                <path fill="#EA2D2E"
-                                    d="M69.802 61.271c3.814 4.392-1.002 8.347-1.002 8.347s9.682-4.998 5.234-11.26c-4.149-5.842-7.328-8.75 9.9-18.76 0 0-27.05 6.752-14.132 21.673z" />
-                                <path fill="#F89820"
-                                    d="M102.123 108.229s2.237 1.845-2.462 3.273c-8.937 2.71-37.185 3.526-45.023.108-2.817-1.225 2.467-2.924 4.131-3.285 1.732-.379 2.723-.309 2.723-.309-3.134-2.208-20.258 4.332-8.699 6.202 31.496 5.109 57.453-2.299 49.33-6zM49.268 88.435s-14.374 3.417-5.09 4.657c3.924.527 11.738.407 19.023-.207 5.954-.502 11.929-1.58 11.929-1.58s-2.098.899-3.616 1.932c-14.609 3.84-42.83 2.054-34.709-1.87 6.842-3.335 12.463-2.932 12.463-2.932zm25.801 14.416c14.853-7.711 7.979-15.121 3.188-14.127-1.174.245-1.7.457-1.7.457s.437-.685 1.271-.981c9.496-3.341 16.806 9.845-3.059 15.057 0 0 .232-.207.3-.406z" />
-                                <path fill="#EA2D2E"
-                                    d="M76.491 1s16.488 16.497-15.646 41.886c-25.789 20.37-5.886 31.977.01 45.268-15.061-13.587-26.12-25.551-18.699-36.666C53.09 35.612 81.787 27.995 76.491 1z" />
-                                <path fill="#F89820"
-                                    d="M52.214 126.021c14.254.912 36.141-.506 36.671-7.248 0 0-.997 2.558-11.794 4.583-12.238 2.281-27.319 2.013-36.252.552 0 0 1.832 1.514 11.375 2.113z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">Java</span>
-                        <div class="tech-glow" style="--glow:#F89820"></div>
+                    <span class="tech-name">React</span>
+                    <div class="tech-glow" style="--glow:#61DAFB"></div>
+                </div>
+                <div class="tech-card" data-tooltip="Node.js">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#83CD29" d="M64 5.103L13.39 35.051v59.898L64 124.897l50.61-29.948V35.051L64 5.103zm-.29 118.739L14.39 94.45V35.55L63.71 6.159l49.32 29.391v58.9l-49.32 29.392z"/><path fill="#83CD29" d="M64 3.5l-52 30v61l52 30 52-30v-61z" opacity=".2"/><path fill="#404137" d="M47 87.5c0 1.933-1.119 2.5-2.5 2.5-1.381 0-2.5-.567-2.5-2.5V61.5c0-1.933 1.119-2.5 2.5-2.5 1.381 0 2.5.567 2.5 2.5V87.5z"/><path fill="#404137" d="M86 87.5c0 1.933-1.119 2.5-2.5 2.5h-20C62.119 90 61 89.433 61 87.5V61.5c0-1.933 1.119-2.5 2.5-2.5 1.381 0 2.5.567 2.5 2.5V85h17.5c1.381 0 2.5.567 2.5 2.5z"/></svg>
                     </div>
-
-                    <div class="tech-card glass" data-tooltip="JavaScript">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#F7DF1E" d="M1.408 1.408h125.184v125.185H1.408z" />
-                                <path fill="#323330"
-                                    d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">JavaScript</span>
-                        <div class="tech-glow" style="--glow:#F7DF1E"></div>
-                    </div>
-
+                    <span class="tech-name">Node.js</span>
+                    <div class="tech-glow" style="--glow:#83CD29"></div>
                 </div>
             </div>
-
-            <div class="skill-category">
-                <p class="cat-label">Web Tech</p>
-                <div class="tech-grid">
-
-                    <div class="tech-card glass" data-tooltip="HTML5">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#E34C26"
-                                    d="M9.032 2l10.005 112.093 44.896 12.401 45.02-12.387L119.024 2H9.032z" />
-                                <path fill="#EF652A" d="M64 116.8l36.378-10.086 8.559-95.878H64V116.8z" />
-                                <path fill="#EBEBEB"
-                                    d="M64 52.455H45.788L44.53 38.361H64V24.599H29.061l.33 3.692 3.381 37.927H64V52.455zm0 35.743l-.061.017L48.096 84.1l-.97-10.896H33.267l1.906 21.41L63.938 103.5l.062-.017V88.198z" />
-                                <path fill="#fff"
-                                    d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.141v14.305l28.02-7.768.206-2.301 3.215-36.003.332-3.686H63.952zm0-27.856v13.762h33.244l.276-3.092.628-6.978.332-3.692H63.952z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">HTML5</span>
-                        <div class="tech-glow" style="--glow:#E34C26"></div>
-                    </div>
-
-                    <div class="tech-card glass" data-tooltip="CSS3">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#1572B6"
-                                    d="M9.032 2l10.005 112.093 44.896 12.401 45.02-12.387L119.024 2H9.032z" />
-                                <path fill="#33A9DC" d="M64 116.8l36.378-10.086 8.559-95.878H64V116.8z" />
-                                <path fill="#fff"
-                                    d="M64 52.455H45.788L44.53 38.361H64V24.599H29.061l.33 3.692 3.381 37.927H64V52.455zm0 35.743l-.061.017L48.096 84.1l-.97-10.896H33.267l1.906 21.41L63.938 103.5l.062-.017V88.198z" />
-                                <path fill="#EBEBEB"
-                                    d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.141v14.305l28.02-7.768.206-2.301 3.215-36.003.332-3.686H63.952zm0-27.856v13.762h33.244l.276-3.092.628-6.978.332-3.692H63.952z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">CSS3</span>
-                        <div class="tech-glow" style="--glow:#1572B6"></div>
-                    </div>
-                    <div class="tech-card glass" data-tooltip="JavaScript">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#F7DF1E" d="M1.408 1.408h125.184v125.185H1.408z" />
-                                <path fill="#323330"
-                                    d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">JavaScript</span>
-                        <div class="tech-glow" style="--glow:#F7DF1E"></div>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <p class="cat-label">Data & Libraries</p>
-                <div class="tech-grid">
-
-                    <div class="tech-card glass" data-tooltip="NumPy">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#4B8BBE"
-                                    d="M60.456 14.022C29.324 14.022 3.906 28.432.082 46.737c-.46 2.192-.07 4.33.082 6.521 1.45 20.616 28.02 36.907 61.108 36.907 3.073 0 6.09-.155 9.013-.439v20.35l19.098-14.48C103.49 89.23 114 77.82 114 64.786v-.132c0-27.96-24.034-50.632-53.544-50.632z" />
-                                <path fill="#FFD43B"
-                                    d="M60.456 14.022C29.324 14.022 3.906 28.432.082 46.737c2.47-9.822 15.15-17.22 31.004-17.22 19.54 0 35.384 11.853 35.384 26.48 0 14.63-15.844 26.48-35.384 26.48-3.426 0-6.72-.4-9.787-1.12 7.93 6.79 19.51 11.09 32.57 11.4v15.117l19.098-14.48C87.074 87.06 99.7 76.904 103.62 64.2c.276-.898.38-1.82.38-2.72 0-26.2-19.47-47.458-43.544-47.458z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">NumPy</span>
-                        <div class="tech-glow" style="--glow:#4B8BBE"></div>
-                    </div>
-
-                    <div class="tech-card glass" data-tooltip="Pandas">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#150458"
-                                    d="M2.25 76.25h20.25V107h-20.25V76.25zM35.75 42.5h20.25v64.5H35.75V42.5zM69.25 21h20.25v86h-20.25V21zM102.75 55.25H123V107h-20.25V55.25z" />
-                                <path fill="#E70488" d="M2.25 76.25h123.5v10H2.25z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">Pandas</span>
-                        <div class="tech-glow" style="--glow:#E70488"></div>
-                    </div>
-
-                    <div class="tech-card glass" data-tooltip="Matplotlib">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <circle cx="64" cy="64" r="56" fill="#11557C" />
-                                <circle cx="64" cy="64" r="42" fill="#fff" />
-                                <circle cx="64" cy="64" r="28" fill="#11557C" />
-                                <circle cx="64" cy="64" r="8" fill="#fff" />
-                                <line x1="64" y1="22" x2="64" y2="8" stroke="#11557C" stroke-width="4" />
-                                <line x1="64" y1="120" x2="64" y2="106" stroke="#11557C" stroke-width="4" />
-                                <line x1="22" y1="64" x2="8" y2="64" stroke="#11557C" stroke-width="4" />
-                                <line x1="120" y1="64" x2="106" y2="64" stroke="#11557C" stroke-width="4" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">Matplotlib</span>
-                        <div class="tech-glow" style="--glow:#11557C"></div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <p class="cat-label">Tools</p>
-                <div class="tech-grid">
-
-                    <div class="tech-card glass" data-tooltip="GitHub">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#ffffff"
-                                    d="M64 5.103c-33.347 0-60.388 27.05-60.388 60.388 0 26.682 17.303 49.317 41.297 57.303 3.017.56 4.125-1.31 4.125-2.905 0-1.44-.056-6.197-.082-11.243-16.8 3.653-20.345-7.125-20.345-7.125-2.747-6.98-6.705-8.836-6.705-8.836-5.48-3.748.413-3.67.413-3.67 6.063.425 9.257 6.223 9.257 6.223 5.386 9.23 14.127 6.562 17.573 5.02.542-3.903 2.107-6.568 3.834-8.076-13.413-1.525-27.514-6.704-27.514-29.843 0-6.593 2.36-11.98 6.223-16.21-.628-1.52-2.695-7.662.584-15.98 0 0 5.07-1.623 16.61 6.19C53.7 35 58.867 34.327 64 34.304c5.13.023 10.3.694 15.127 2.033 11.526-7.813 16.59-6.19 16.59-6.19 3.287 8.317 1.22 14.46.593 15.98 3.872 4.23 6.215 9.617 6.215 16.21 0 23.194-14.127 28.3-27.574 29.796 2.167 1.874 4.097 5.55 4.097 11.183 0 8.08-.07 14.583-.07 16.572 0 1.607 1.088 3.49 4.148 2.897 23.98-7.994 41.263-30.622 41.263-57.294C124.388 32.153 97.35 5.103 64 5.103z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">GitHub</span>
-                        <div class="tech-glow" style="--glow:#ffffff"></div>
-                    </div>
-
-                    <div class="tech-card glass" data-tooltip="VS Code">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <path fill="#007ACC"
-                                    d="M90.767 10.89l-34.0 32.96L33.376 25.5 8 43.244v41.526L33.376 102.5l23.39-18.35 34.0 32.96L120 104.163V23.837L90.767 10.89zm0 76.67L68.302 64l22.465-23.56v47.12zM20 75.25V52.75l13.376 11.25L20 75.25z" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">VS Code</span>
-                        <div class="tech-glow" style="--glow:#007ACC"></div>
-                    </div>
-
-                    <div class="tech-card glass" data-tooltip="Jupyter">
-                        <div class="tech-logo-wrap">
-                            <svg width="40" height="40" viewBox="0 0 128 128">
-                                <ellipse cx="64" cy="64" rx="50" ry="50" fill="#F37000" />
-                                <ellipse cx="64" cy="64" rx="38" ry="38" fill="#fff" />
-                                <ellipse cx="64" cy="64" rx="14" ry="14" fill="#F37000" />
-                                <circle cx="64" cy="24" r="6" fill="#F37000" />
-                                <circle cx="64" cy="104" r="6" fill="#989898" />
-                                <circle cx="24" cy="64" r="6" fill="#989898" />
-                            </svg>
-                        </div>
-                        <span class="tech-name">Jupyter</span>
-                        <div class="tech-glow" style="--glow:#F37000"></div>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
-    </section>
 
-    <section id="contact" class="contact-section">
-        <h2 class="section-title text-center">Get In Touch</h2>
-        <p class="subtitle text-center">Have a project in mind or just want to say hi?</p>
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit" class="btn-submit">Send Message</button>
-        </form>
-        <div class="contact-logo text-center">
-            <a href=""><img class="insta" src="insta.svg" alt=""></a>
-            <a href=""><img class="whatsapp" src="whatsapp.svg" alt=""></a>
+        <div class="skill-category">
+            <p class="cat-label">Tools & Platforms</p>
+            <div class="tech-grid">
+                <div class="tech-card" data-tooltip="GitHub">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#ffffff" d="M64 5.103c-33.347 0-60.388 27.05-60.388 60.388 0 26.682 17.303 49.317 41.297 57.303 3.017.56 4.125-1.31 4.125-2.905 0-1.44-.056-6.197-.082-11.243-16.8 3.653-20.345-7.125-20.345-7.125-2.747-6.98-6.705-8.836-6.705-8.836-5.48-3.748.413-3.67.413-3.67 6.063.425 9.257 6.223 9.257 6.223 5.386 9.23 14.127 6.562 17.573 5.02.542-3.903 2.107-6.568 3.834-8.076-13.413-1.525-27.514-6.704-27.514-29.843 0-6.593 2.36-11.98 6.223-16.21-.628-1.52-2.695-7.662.584-15.98 0 0 5.07-1.623 16.61 6.19C53.7 35 58.867 34.327 64 34.304c5.13.023 10.3.694 15.127 2.033 11.526-7.813 16.59-6.19 16.59-6.19 3.287 8.317 1.22 14.46.593 15.98 3.872 4.23 6.215 9.617 6.215 16.21 0 23.194-14.127 28.3-27.574 29.796 2.167 1.874 4.097 5.55 4.097 11.183 0 8.08-.07 14.583-.07 16.572 0 1.607 1.088 3.49 4.148 2.897 23.98-7.994 41.263-30.622 41.263-57.294C124.388 32.153 97.35 5.103 64 5.103z"/></svg>
+                    </div>
+                    <span class="tech-name">GitHub</span>
+                    <div class="tech-glow" style="--glow:#6e7681"></div>
+                </div>
+                <div class="tech-card" data-tooltip="VS Code">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#007ACC" d="M90.767 10.89l-34 32.96L33.376 25.5 8 43.244v41.526L33.376 102.5l23.39-18.35 34 32.96L120 104.163V23.837L90.767 10.89zm0 76.67L68.302 64l22.465-23.56v47.12zM20 75.25V52.75l13.376 11.25L20 75.25z"/></svg>
+                    </div>
+                    <span class="tech-name">VS Code</span>
+                    <div class="tech-glow" style="--glow:#007ACC"></div>
+                </div>
+                <div class="tech-card" data-tooltip="Jupyter">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><ellipse cx="64" cy="64" rx="50" ry="50" fill="#F37000"/><ellipse cx="64" cy="64" rx="38" ry="38" fill="#fff"/><ellipse cx="64" cy="64" rx="14" ry="14" fill="#F37000"/><circle cx="64" cy="24" r="6" fill="#F37000"/><circle cx="64" cy="104" r="6" fill="#989898"/><circle cx="24" cy="64" r="6" fill="#989898"/></svg>
+                    </div>
+                    <span class="tech-name">Jupyter</span>
+                    <div class="tech-glow" style="--glow:#F37000"></div>
+                </div>
+                <div class="tech-card" data-tooltip="Google Colab">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><circle cx="64" cy="64" r="54" fill="#F9AB00"/><path fill="#E37400" d="M64 20a44 44 0 0 0-31.11 75.11L84.5 42.89A43.79 43.79 0 0 0 64 20z"/><circle cx="64" cy="64" r="18" fill="#fff"/><circle cx="64" cy="64" r="10" fill="#F9AB00"/></svg>
+                    </div>
+                    <span class="tech-name">Colab</span>
+                    <div class="tech-glow" style="--glow:#F9AB00"></div>
+                </div>
+                <div class="tech-card" data-tooltip="Git">
+                    <div class="tech-logo-wrap">
+                        <svg width="40" height="40" viewBox="0 0 128 128"><path fill="#F34F29" d="M124.742 58.378L69.625 3.264a8.876 8.876 0 0 0-12.548 0L45.261 15.081l15.838 15.838a10.565 10.565 0 0 1 13.36 13.495l15.262 15.262a10.558 10.558 0 1 1-6.317 6.012L68.712 51.176v39.991a10.574 10.574 0 1 1-8.707-.634V50.547a10.574 10.574 0 0 1-5.764-13.824L38.554 20.99 3.256 56.29a8.875 8.875 0 0 0 0 12.547l55.117 55.114a8.877 8.877 0 0 0 12.548 0l53.821-53.819a8.877 8.877 0 0 0 0-12.754z"/></svg>
+                    </div>
+                    <span class="tech-name">Git</span>
+                    <div class="tech-glow" style="--glow:#F34F29"></div>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <footer class="footer text-center">
-        <p>© 2026 Vivek Gupta | AI & Data Science Student</p>
-    </footer>
+    </div>
+</section>
 
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <script src="script.js"></script>
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience" class="experience-section">
+    <div class="section-header">
+        <div class="section-label">✦ Journey</div>
+        <h2 class="section-title">Experience & <span>Education</span></h2>
+        <p class="section-desc">My academic and professional journey so far</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="exp-header">
+                <div>
+                    <div class="exp-role">B.Tech — AI & Data Science</div>
+                    <div class="exp-org">Government Engineering College / Your University</div>
+                </div>
+                <span class="exp-badge">Education</span>
+            </div>
+            <div class="exp-date"><i class="far fa-calendar-alt"></i> 2022 – 2026 · Mumbai, India</div>
+            <p class="exp-desc">Pursuing a degree in Artificial Intelligence and Data Science. Core coursework includes Machine Learning, Deep Learning, Data Structures, Database Management, and Web Technologies. Active member of the college tech club.</p>
+            <div class="exp-skills">
+                <span class="exp-skill">Data Science</span>
+                <span class="exp-skill">Deep Learning</span>
+                <span class="exp-skill">Python</span>
+            </div>
+        </div>
+
+        <!-- <div class="timeline-item">
+            <div class="exp-header">
+                <div>
+                    <div class="exp-role">Data Analyst Intern</div>
+                    <div class="exp-org">Company / Organization Name</div>
+                </div>
+                <span class="exp-badge">Internship</span>
+            </div>
+            <div class="exp-date"><i class="far fa-calendar-alt"></i> Jun 2024 – Aug 2024 · Remote</div>
+            <p class="exp-desc">Analyzed large datasets using Python and Pandas to extract actionable insights. Created interactive dashboards in Power BI for reporting. Contributed to a 15% improvement in data reporting efficiency through automation.</p>
+            <div class="exp-skills">
+                <span class="exp-skill">Python</span>
+                <span class="exp-skill">Pandas</span>
+                <span class="exp-skill">Power BI</span>
+                <span class="exp-skill">SQL</span>
+            </div>
+        </div> -->
+
+        <!-- <div class="timeline-item">
+            <div class="exp-header">
+                <div>
+                    <div class="exp-role">Freelance Web Developer</div>
+                    <div class="exp-org">Self-Employed</div>
+                </div>
+                <span class="exp-badge">Freelance</span>
+            </div>
+            <div class="exp-date"><i class="far fa-calendar-alt"></i> 2023 – Present</div>
+            <p class="exp-desc">Built responsive portfolio websites and web applications for clients. Delivered 5+ projects using HTML, CSS, JavaScript, and API integrations with a focus on performance and clean UI design.</p>
+            <div class="exp-skills">
+                <span class="exp-skill">HTML/CSS</span>
+                <span class="exp-skill">JavaScript</span>
+                <span class="exp-skill">API Integration</span>
+                <span class="exp-skill">Responsive Design</span>
+            </div>
+        </div>
+    </div> -->
+</section>
+
+<!-- ===== CERTIFICATIONS ===== -->
+<section id="certifications" class="certifications-section">
+    <!-- <div class="section-header">
+        <div class="section-label">✦ Achievements</div>
+        <h2 class="section-title">Licenses & <span>Certifications</span></h2>
+        <p class="section-desc">Verified credentials from industry-leading platforms</p>
+    </div>
+    <div class="cert-grid">
+        <div class="cert-card">
+            <div class="cert-icon yellow"><i class="fas fa-brain"></i></div>
+            <div class="cert-body">
+                <div class="cert-title">Machine Learning Specialization</div>
+                <div class="cert-issuer">Coursera · DeepLearning.AI</div>
+                <div class="cert-date">Issued Jun 2024</div>
+                <div class="cert-badge"><i class="fas fa-check-circle"></i> Verified</div>
+            </div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon blue"><i class="fab fa-python"></i></div>
+            <div class="cert-body">
+                <div class="cert-title">Python for Data Science & AI</div>
+                <div class="cert-issuer">IBM · Coursera</div>
+                <div class="cert-date">Issued Mar 2024</div>
+                <div class="cert-badge"><i class="fas fa-check-circle"></i> Verified</div>
+            </div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon orange"><i class="fas fa-chart-bar"></i></div>
+            <div class="cert-body">
+                <div class="cert-title">Data Analysis with Python</div>
+                <div class="cert-issuer">freeCodeCamp</div>
+                <div class="cert-date">Issued Jan 2024</div>
+                <div class="cert-badge"><i class="fas fa-check-circle"></i> Verified</div>
+            </div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon green"><i class="fas fa-code"></i></div>
+            <div class="cert-body">
+                <div class="cert-title">Responsive Web Design</div>
+                <div class="cert-issuer">freeCodeCamp</div>
+                <div class="cert-date">Issued Nov 2023</div>
+                <div class="cert-badge"><i class="fas fa-check-circle"></i> Verified</div>
+            </div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon purple"><i class="fas fa-database"></i></div>
+            <div class="cert-body">
+                <div class="cert-title">SQL & Database Fundamentals</div>
+                <div class="cert-issuer">HackerRank</div>
+                <div class="cert-date">Issued Sep 2023</div>
+                <div class="cert-badge"><i class="fas fa-check-circle"></i> Verified</div>
+            </div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon cyan"><i class="fas fa-network-wired"></i></div>
+            <div class="cert-body">
+                <div class="cert-title">Google Data Analytics Certificate</div>
+                <div class="cert-issuer">Google · Coursera</div>
+                <div class="cert-date">Issued Aug 2023</div>
+                <div class="cert-badge"><i class="fas fa-check-circle"></i> Verified</div>
+            </div>
+        </div>
+    </div> -->
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="contact-section">
+    <div class="section-header">
+        <div class="section-label">✦ Let's Connect</div>
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <p class="section-desc">Have a project in mind or just want to say hi? I'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fas fa-envelope">
+                    <img src="gmail.svg"  title="Gmail">
+                </i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label">Email</div>
+                    <div>vivek2ko6@example.com</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fas fa-map-marker-alt">
+                    <img src="location.svg"  title="Locationalt="></i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label">Location</div>
+                    <div>Mumbai, India 🇮🇳</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon"><i class="fas fa-graduation-cap">
+                    <img src="inten.svg"  >
+                </i></div>
+                <div class="contact-item-text">
+                    <div class="contact-item-label">Status</div>
+                    <div>Open to Internships & Projects</div>
+                </div>
+            </div>
+            <div>
+                <div class="contact-item-label" style="margin-bottom:0.6rem;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);font-weight:600;">Follow Me</div>
+                <div class="social-row">
+                    <a href="https://github.com/vivek818181" target="_blank" class="social-btn" title="GitHub">
+                        <img src="git.svg" title="GitHub">
+                        <i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/vivek81_?utm_source=qr&igsh=MW1wMGh5bXA3bTJvYQ==" class="social-btn" title="Instagram">
+                        <img src="insta.svg" alt="Instagram">
+                        <i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn" title="WhatsApp">
+                        <img src="whatsapp.svg" alt="WhatsApp">
+                        <i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.linkedin.com/in/vivek-gupta-8292a032a?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="social-btn" title="LinkedIn">
+                        <img src="linkden.svg" alt="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="contact-form">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" placeholder="Vivek Gupta" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-input" placeholder="Project collaboration...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea class="form-input" rows="5" placeholder="Hi Vivek, I'd like to..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> &nbsp;Send Message</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 <strong>Vivek Gupta</strong> · Built with ❤️ · AI & Data Science Student</p>
+</footer>
+
+<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script>
+/* ========== TYPING EFFECT ========== */
+new Typed('#typing-text', {
+    strings: ['AI Student', 'Data Analyst', 'Web Developer', 'Problem Solver'],
+    typeSpeed: 60, backSpeed: 40, loop: true
+});
+
+/* ========== MOBILE MENU ========== */
+function toggleMenu(){
+    document.getElementById('nav-menu').classList.toggle('active');
+}
+function closeMenu(){
+    document.getElementById('nav-menu').classList.remove('active');
+}
+document.addEventListener('click', e => {
+    const menu = document.getElementById('nav-menu');
+    const btn = document.querySelector('.menu-icon');
+    if(menu.classList.contains('active') && !menu.contains(e.target) && !btn.contains(e.target)){
+        menu.classList.remove('active');
+    }
+});
+
+/* ========== THEME TOGGLE ========== */
+function toggleTheme(){
+    document.body.classList.toggle('light-theme');
+    document.querySelector('.theme-toggle').textContent =
+        document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+    initCanvas();
+}
+
+/* ========== SCROLL PROGRESS ========== */
+window.addEventListener('scroll', () => {
+    const el = document.documentElement;
+    const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+/* ========== ANIMATED BACKGROUND ========== */
+(function(){
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+    const mouse = {x:-999,y:-999};
+    const COUNT = window.innerWidth < 600 ? 40 : 80;
+    const LINE_DIST = 130;
+
+    function isLight(){ return document.body.classList.contains('light-theme'); }
+    function rColor(){
+        const cols = ['#3b82f6','#6366f1','#8b5cf6','#06b6d4'];
+        return cols[Math.floor(Math.random()*cols.length)];
+    }
+
+    class Particle {
+        constructor(){ this.reset(); }
+        reset(){
+            this.x = Math.random()*W; this.y = Math.random()*H;
+            this.vx = (Math.random()-.5)*.5; this.vy = (Math.random()-.5)*.5;
+            this.r = Math.random()*2+1; this.color = rColor();
+            this.alpha = Math.random()*.5+.3;
+            this.pulse = Math.random()*Math.PI*2; this.ps = .02+Math.random()*.02;
+        }
+        update(){
+            this.x+=this.vx; this.y+=this.vy; this.pulse+=this.ps;
+            let dx=mouse.x-this.x, dy=mouse.y-this.y, d=Math.hypot(dx,dy);
+            if(d<120){ this.vx+=dx*.0003; this.vy+=dy*.0003; }
+            let sp=Math.hypot(this.vx,this.vy);
+            if(sp>1.2){ this.vx*=.95; this.vy*=.95; }
+            if(this.x<-10) this.x=W+10; if(this.x>W+10) this.x=-10;
+            if(this.y<-10) this.y=H+10; if(this.y>H+10) this.y=-10;
+        }
+        draw(){
+            let pr=this.r+Math.sin(this.pulse)*.5;
+            ctx.beginPath(); ctx.arc(this.x,this.y,pr,0,Math.PI*2);
+            ctx.fillStyle=this.color; ctx.globalAlpha=this.alpha+Math.sin(this.pulse)*.1;
+            ctx.fill(); ctx.globalAlpha=1;
+        }
+    }
+
+    function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+
+    window.initCanvas = function(){
+        resize(); particles=[];
+        for(let i=0;i<COUNT;i++) particles.push(new Particle());
+    };
+
+    const orbs=[
+        {x:.15,y:.2,r:280,c:'rgba(59,130,246,0.07)'},
+        {x:.85,y:.15,r:220,c:'rgba(139,92,246,0.07)'},
+        {x:.5,y:.7,r:260,c:'rgba(6,182,212,0.05)'},
+        {x:.1,y:.85,r:200,c:'rgba(99,102,241,0.06)'},
+        {x:.9,y:.75,r:180,c:'rgba(168,85,247,0.06)'},
+    ];
+    let ot=0;
+
+    function drawOrbs(){
+        ot+=.004;
+        orbs.forEach((o,i)=>{
+            let ox=o.x*W+Math.sin(ot+i*1.3)*40, oy=o.y*H+Math.cos(ot+i*.9)*30;
+            let g=ctx.createRadialGradient(ox,oy,0,ox,oy,o.r);
+            g.addColorStop(0,o.c); g.addColorStop(1,'transparent');
+            ctx.beginPath(); ctx.arc(ox,oy,o.r,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+        });
+    }
+
+    function drawLines(){
+        for(let i=0;i<particles.length;i++){
+            for(let j=i+1;j<particles.length;j++){
+                let d=Math.hypot(particles[i].x-particles[j].x,particles[i].y-particles[j].y);
+                if(d<LINE_DIST){
+                    ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y);
+                    ctx.lineTo(particles[j].x,particles[j].y);
+                    ctx.strokeStyle=`rgba(99,102,241,${(1-d/LINE_DIST)*.18})`;
+                    ctx.lineWidth=.7; ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate(){
+        ctx.clearRect(0,0,W,H);
+        ctx.fillStyle=isLight()?'#f0f4ff':'#0a0f1e'; ctx.fillRect(0,0,W,H);
+        drawOrbs(); drawLines();
+        particles.forEach(p=>{p.update();p.draw();});
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize',()=>{resize();particles.forEach(p=>p.reset());});
+    window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+    window.addEventListener('touchmove',e=>{
+        if(e.touches.length>0){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}
+    },{passive:true});
+
+    initCanvas(); animate();
+})();
+
+/* ========== CONTACT FORM ========== */
+document.querySelector('.btn-submit').addEventListener('click', function(e){
+    e.preventDefault();
+    this.innerHTML='<i class="fas fa-check"></i> &nbsp;Message Sent!';
+    this.style.background='linear-gradient(135deg,#22c55e,#16a34a)';
+    setTimeout(()=>{
+        this.innerHTML='<i class="fas fa-paper-plane"></i> &nbsp;Send Message';
+        this.style.background='';
+    },3000);
+});
+</script>
 </body>
-
 </html>

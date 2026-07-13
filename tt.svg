@@ -1,0 +1,120 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Gradient Background -->
+    <radialGradient id="grad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#FFE55C"/>
+      <stop offset="100%" stop-color="#FFC300"/>
+    </radialGradient>
+
+    <!-- Shadow -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <style>
+    .bg {
+      fill: url(#grad);
+      filter: url(#shadow);
+      animation: pop 0.6s ease-out;
+    }
+
+    /* Blue Grid */
+    .grid line {
+      stroke: #007BFF;
+      stroke-width: 1;
+      opacity: 0.4;
+    }
+
+    .t {
+      fill: #111;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 80px;
+      dominant-baseline: alphabetic;
+    }
+
+    .t1, .t2 {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .t2 {
+      animation-delay: 0.3s;
+    }
+
+    /* Clock circle */
+    .clock {
+      stroke: #000;
+      stroke-width: 2;
+      fill: none;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.6s;
+    }
+
+    /* 🔥 FIXED rotating hands */
+    .hand {
+      stroke: #000;
+      stroke-width: 2;
+      stroke-linecap: round;
+      transform-origin: 0px 0px;
+    }
+
+    .minute {
+      animation: rotate 4s linear infinite;
+    }
+
+    .hour {
+      animation: rotate 12s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); }
+      to { transform: scale(1); }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(25px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+
+  <!-- Background -->
+  <rect x="10" y="10" width="200" height="200" rx="40" class="bg"/>
+
+  <!-- Grid -->
+  <g class="grid">
+    <line x1="60" y1="80" x2="160" y2="80"/>
+    <line x1="60" y1="110" x2="160" y2="110"/>
+    <line x1="60" y1="140" x2="160" y2="140"/>
+    <line x1="90" y1="60" x2="90" y2="160"/>
+    <line x1="120" y1="60" x2="120" y2="160"/>
+    <line x1="150" y1="60" x2="150" y2="160"/>
+  </g>
+
+  <!-- Clock -->
+  <g transform="translate(145,45)">
+    <circle r="20" class="clock"/>
+    
+    <!-- Minute hand -->
+    <line x1="0" y1="0" x2="0" y2="-12" class="hand minute"/>
+    
+    <!-- Hour hand -->
+    <line x1="0" y1="0" x2="8" y2="0" class="hand hour"/>
+  </g>
+
+  <!-- TT -->
+  <text x="55" y="135" class="t t1">T</text>
+  <text x="115" y="135" class="t t2">T</text>
+
+</svg>
